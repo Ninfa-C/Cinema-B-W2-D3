@@ -5,6 +5,11 @@
     ViewData["Title"] = "Vendita Biglietto";
 }
 
+@if (TempData["Error"] != null)
+{
+    <span class="text-danger">@TempData["Error"]</span>
+}
+
 <form class="my-4 row g-2" asp-controller="Cinema" asp-action="Add" method="post">
     <div class="col-md-6">
         <label for="Nome" class="form-label">Nome</label>
@@ -33,3 +38,8 @@
         <button type="submit" class="btn btn-primary">Aggiungi Biglietto</button>
     </div>
 </form>
+
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}

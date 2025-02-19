@@ -8,20 +8,20 @@ namespace Cinema.Controllers
     {
         private static List<Sale> saleList = new()
         {
-            new Sale() {Id = Guid.NewGuid(), Nome= "SALA NORD" },
-            new Sale() {Id = Guid.NewGuid(), Nome= "SALA SUD" },
-            new Sale() {Id = Guid.NewGuid(), Nome= "SALA EST" },
+            new Sale() {Id = Guid.NewGuid(), Nome= "SALA NORD", Posti = 2},
+            new Sale() {Id = Guid.NewGuid(), Nome= "SALA SUD", Posti = 2},
+            new Sale() {Id = Guid.NewGuid(), Nome= "SALA EST", Posti = 2 },
         };
 
-        private static List<BigliettoBase> Utente = new List<BigliettoBase>()
-        {
+        private static readonly List<BigliettoBase> Utente =
+        [
             new BigliettoBase() {
                 Id= Guid.NewGuid(),
                 Nome="Ninfa",
                 Cognome= "Carreno",
                 IsRidotto=true,
                 Sale=saleList[0]},
-        };
+        ];
 
 
         public IActionResult Index()
@@ -53,6 +53,20 @@ namespace Cinema.Controllers
                 return View(item);
             }
 
+            var selectedSala = saleList.FirstOrDefault(x => x.Id == item.SaleID);
+
+            if (selectedSala == null)
+            {
+                TempData["Error"] = "La sala selezionata non esiste!";
+                return RedirectToAction("Add");
+            }
+            int contabiglietti = Utente.Count(x => x.Sale?.Id == item.SaleID);
+
+            if (contabiglietti >= selectedSala?.Posti)
+            {
+                TempData["Error"] = "La sala selezionata è piena!";
+                return RedirectToAction("Add");
+            }
             var ticket = new BigliettoBase()
             {
                 Id = Guid.NewGuid(),
