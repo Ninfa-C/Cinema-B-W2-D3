@@ -1,0 +1,44 @@
+﻿@using Cinema.Models.ViewModel
+@model BigliettoViewModel
+
+@{
+    ViewData["Title"] = "EpiCinema";
+}
+
+<div>
+    <h1>
+        Benvenut*!
+    </h1>
+
+    <div>
+        <a class="btn btn-success mb-3" asp-controller="Cinema" asp-action="Add">Vendi nuovo biglietti</a>
+    </div>
+
+    <h2>Biglietti venduti</h2>
+
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th scope="col">Nome</th>
+                <th scope="col">Cognome</th>
+                <th scope="col">Tipo Biglietto</th>
+                <th scope="col">Sala</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model.Ticket != null){
+
+                foreach (var item in Model.Ticket){
+                    <tr>
+						<td>@item.Nome</td>
+						<td>@item.Cognome</td>
+						<td>@(item.IsRidotto ? "Ridotto" : "Intero")</td>
+                        <td>@item.Sale?.Nome</td>
+                    </tr>
+                }
+           }
+        </tbody>.
+    </table>
+
+
+</div>

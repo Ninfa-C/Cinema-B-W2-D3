@@ -1,0 +1,35 @@
+﻿@using Cinema.Models.ViewModel
+@model AddTicket
+
+@{
+    ViewData["Title"] = "Vendita Biglietto";
+}
+
+<form class="my-4 row g-2" asp-controller="Cinema" asp-action="Add" method="post">
+    <div class="col-md-6">
+        <label for="Nome" class="form-label">Nome</label>
+        <input type="text" class="form-control" placeholder="Nome" required="" autocomplete="on" asp-for="Nome">
+    </div>
+    <div class="col-md-6">
+        <label for="Cognome" class="form-label">Cognome</label>
+        <input type="text" class="form-control" placeholder="Cognome" required="" autocomplete="on" asp-for="Cognome">
+    </div>
+    <div class="col-md-6">
+        <label for="inputState" class="form-label" asp-for="SaleID">Sala</label>
+        <select id="inputState" class="form-select" asp-for="SaleID" asp-items="@(new SelectList(Model.StanzeList, "Id", "Nome"))">
+            <option value="">-- Seleziona una sala --</option>
+        </select>
+    </div>
+
+    <div class="col-md-6">
+        <label for="inputTipoBiglietto" class="form-label">Tipo Biglietto</label>
+        <select id="inputTipoBiglietto" class="form-select" asp-for="IsRidotto">
+            <option value="false">Intero</option>
+            <option value="true">Ridotto</option>
+        </select>
+    </div>
+
+        <div class="col-12 mt-2">
+        <button type="submit" class="btn btn-primary">Aggiungi Biglietto</button>
+    </div>
+</form>
