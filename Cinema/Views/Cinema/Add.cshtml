@@ -3,6 +3,8 @@
 
 @{
     ViewData["Title"] = "Vendita Biglietto";
+    var prova = Model.MovieList;
+    Console.WriteLine();
 }
 
 @if (TempData["Error"] != null)
@@ -10,7 +12,7 @@
     <span class="text-danger">@TempData["Error"]</span>
 }
 
-<form class="my-4 row g-2" asp-controller="Cinema" asp-action="Add" method="post">
+<form class="my-4 row g-2" asp-controller="Cinema" asp-action="AddSave" >
     <div class="col-md-6">
         <label for="Nome" class="form-label">Nome</label>
         <input type="text" class="form-control" placeholder="Nome" required="" autocomplete="on" asp-for="Nome">
@@ -20,12 +22,22 @@
         <input type="text" class="form-control" placeholder="Cognome" required="" autocomplete="on" asp-for="Cognome">
     </div>
     <div class="col-md-6">
-        <label for="inputState" class="form-label" asp-for="SaleID">Sala</label>
-        <select id="inputState" class="form-select" asp-for="SaleID" asp-items="@(new SelectList(Model.StanzeList, "Id", "Nome"))">
+        <label for="SaleID" class="form-label" asp-for="SaleID">Sala</label>
+        <select id="SaleID" class="form-select" asp-for="SaleID" asp-items="@(new SelectList(Model.StanzeList, "Id", "Nome", Model.SaleID))" onchange="updateMovies()">
             <option value="">-- Seleziona una sala --</option>
         </select>
     </div>
 
+    <div class="col-md-6">
+        <label for="MovieID" class="form-label" asp-for="MovieID">Film</label>
+        <select id="MovieID" class="form-select" asp-for="MovieID">
+            <option value="">-- Seleziona un Film --</option>
+            @foreach (var movie in Model.MovieList)
+            {
+                <option value="@movie.Id">@movie.Titolo</option>
+            }
+        </select>
+    </div>
     <div class="col-md-6">
         <label for="inputTipoBiglietto" class="form-label">Tipo Biglietto</label>
         <select id="inputTipoBiglietto" class="form-select" asp-for="IsRidotto">
@@ -42,4 +54,10 @@
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+   
+
 }
+
+<script>
+    var baseUrl = '@Url.Action("Add", "Cinema")';
+</script>

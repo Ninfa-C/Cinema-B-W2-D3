@@ -4,6 +4,8 @@
     {
         public Guid? Id { get; set; }
         public string? Nome { get; set; }
-        public int Posti { get; set; } = 120;
+        public List<Movie> FilmInProgrammazione { get; set; } = new();
+
+
     }
 }

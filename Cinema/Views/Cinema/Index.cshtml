@@ -23,6 +23,7 @@
                 <th scope="col">Cognome</th>
                 <th scope="col">Tipo Biglietto</th>
                 <th scope="col">Sala</th>
+                <th scope="col">Film</th>
             </tr>
         </thead>
         <tbody>
@@ -34,6 +35,7 @@
 						<td>@item.Cognome</td>
 						<td>@(item.IsRidotto ? "Ridotto" : "Intero")</td>
                         <td>@item.Sale?.Nome</td>
+                        <td>@item.Film?.Titolo</td>
                     </tr>
                 }
            }

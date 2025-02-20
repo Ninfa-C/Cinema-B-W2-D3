@@ -7,6 +7,7 @@
         public string? Cognome { get; set; }
         public Sale? Sale { get; set; }
         public bool IsRidotto { get; set; }
+        public Movie? Film { get; set; }
 
     }
 }
